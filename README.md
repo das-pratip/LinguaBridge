@@ -1,6 +1,8 @@
-# LinguaBridge
-LinguaBridge is a real-time voice translation app that converts spoken language into another using speech recognition, Google Translate, and text-to-speech. It supports dynamic language selection via MySQL and provides audio playback of translated text.
-Developed by **Pratip Das**
+# 🌐 LinguaBridge
+
+**LinguaBridge** is a real-time voice translation app that converts spoken language into another using speech recognition, Google Translate, and text-to-speech. It supports dynamic language selection via MySQL and provides audio playback of translated text.
+
+> Developed with ❤️ by **Pratip Das**
 
 ---
 
@@ -11,19 +13,19 @@ Developed by **Pratip Das**
 - 🔊 **Text-to-Speech**: Converts the translated text to speech using `gTTS` and plays it using `playsound`.
 - 🗃️ **Dynamic Language Support**: Loads supported languages and their codes from a MySQL database.
 - ⌨️ **Fallback Input Option**: Users can type their query if voice input fails.
-- ✅ **Error Handling**: Gracefully handles issues like microphone errors, translation failures, or unknown language inputs.
+- ✅ **Error Handling**: Gracefully handles microphone errors, translation failures, or unknown language inputs.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Python 3**
-- **MySQL**
-- **speech_recognition**
-- **googletrans**
-- **gTTS (Google Text-to-Speech)**
-- **playsound**
-- **ReactJS**
+- Python 3
+- MySQL
+- speech_recognition
+- googletrans
+- gTTS (Google Text-to-Speech)
+- playsound
+- ReactJS (Frontend)
 
 ---
 
@@ -34,8 +36,8 @@ LinguaBridge/
 ├── requirements.txt # Python dependencies
 ├── data.sql # Sample SQL file to populate languages table
 ├── README.md # Project documentation
-├── frontend/ #  React-based UI 
-│ └── ...
+├── frontend/ # React-based UI
+│ └── ... # React components and configuration
 
 ---
 
@@ -43,69 +45,63 @@ LinguaBridge/
 
 ### 🔧 Backend (Python)
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/linguabridge.git
-   cd linguabridge
-Install Python dependencies:
+1. **Clone the Repository**
+- git clone https://github.com/your-username/linguabridge.git
+- cd linguabridge
 
+2. **Install Python Dependencies**
+- pip install -r requirements.txt
 
-pip install -r requirements.txt
-Set up MySQL database:
+3. **Set Up MySQL Database**
+- Start your MySQL server.
+- Create a database named linguabridge.
+- Import the data.sql file:
+   SOURCE path/to/data.sql;
 
-Start your MySQL server.
+4. **Update MySQL credentials in main.py to match your configuration:**
+   mysql.connector.connect(
+       host="localhost",
+       user="your_mysql_user",
+       password="your_mysql_password",
+       database="linguabridge"
+   )
 
-Create a database named linguabridge.
+5. **Run the Application**
+   python main.py
+   
+🖥️ **Frontend (Tkinter GUI)**
 
-Import the data.sql file using your SQL client or command line:
-SOURCE path/to/data.sql;
-Update the credentials in main.py to match your MySQL configuration.
+*The application uses Tkinter for its graphical user interface. No separate setup is required for a web frontend.*
 
-Run the app:
-python main.py
-🖥️ Frontend
-Navigate to the frontend folder:
-cd frontend
-Install dependencies and start the React app:
+Steps:
 
-npm install
-npm start
-📦 Example Usage
-Launch the script.
+- Ensure all dependencies are installed:
+   pip install -r requirements.txt
+  
+- Run the GUI application directly:
+   python gui.py
+  
+*The GUI allows users to register, log in, select languages, speak input, or type manually for translation.*
 
-Speak your input when prompted.
+📦 **Example Usage**
 
-Select the target language by voice (e.g., "Spanish", "French").
+- Launch the script.
+- Speak your input when prompted.
+- Select the target language by voice (e.g., "Spanish", "French").
+- The translated text will be displayed and spoken aloud.
+- If voice input fails, use the fallback text input field.
 
-The translated text will be displayed and spoken aloud.
+📚 **Use Cases**
 
-If no voice is detected, use the fallback text input.
+- Real-time translation for travelers
+- Language learning and pronunciation
+- Multilingual conversations
+- Accessibility for non-native speakers
 
-📚 Use Cases
-Real-time translation for travelers
-
-Language learning and pronunciation
-
-Multilingual conversations
-
-Accessibility for non-native speakers
-
-📜 License
+📜 **License**
 This project is licensed under the MIT License.
 
-👤 Developer
+👤 **Developer**
 Developed with ❤️ by Pratip Das
 
 Feel free to fork, contribute, or connect!
-
-
----
-
-Let me know your name so I can finalize it for you!
-
-
-
-
-
-
-
