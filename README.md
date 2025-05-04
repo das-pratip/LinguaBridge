@@ -11,7 +11,7 @@
 - 🎤 **Speech Recognition**: Captures voice input using `speech_recognition`.
 - 🌐 **Live Translation**: Uses `googletrans` to translate the spoken text into a target language.
 - 🔊 **Text-to-Speech**: Converts the translated text to speech using `gTTS` and plays it using `playsound`.
-- 🗃️ **Dynamic Language Support**: Loads supported languages and their codes from a MySQL database.
+- 🗃️ **Dynamic Language Support**: Loads supported languages and their codes from a `MySQL` database.
 - ⌨️ **Fallback Input Option**: Users can type their query if voice input fails.
 - ✅ **Error Handling**: Gracefully handles microphone errors, translation failures, or unknown language inputs.
 
@@ -46,28 +46,28 @@ LinguaBridge/
 ### 🔧 Backend (Python)
 
 1. **Clone the Repository**
-- git clone https://github.com/your-username/linguabridge.git
-- cd linguabridge
+   `git clone https://github.com/your-username/linguabridge.git`
+   `cd linguabridge`
 
 2. **Install Python Dependencies**
-- pip install -r requirements.txt
+   `pip install -r requirements.txt`
 
 3. **Set Up MySQL Database**
 - Start your MySQL server.
 - Create a database named linguabridge.
 - Import the data.sql file:
-   SOURCE path/to/data.sql;
+   `SOURCE path/to/data.sql;`
 
 4. **Update MySQL credentials in main.py to match your configuration:**
-   mysql.connector.connect(
+   `mysql.connector.connect(
        host="localhost",
        user="your_mysql_user",
        password="your_mysql_password",
        database="linguabridge"
-   )
+   )`
 
 5. **Run the Application**
-   python main.py
+   `python main.py`
    
 🖥️ **Frontend (Tkinter GUI)**
 
@@ -76,10 +76,10 @@ LinguaBridge/
 Steps:
 
 - Ensure all dependencies are installed:
-   pip install -r requirements.txt
+   `pip install -r requirements.txt`
   
 - Run the GUI application directly:
-   python gui.py
+   `python gui.py`
   
 *The GUI allows users to register, log in, select languages, speak input, or type manually for translation.*
 
