@@ -1,50 +1,54 @@
 print("Script is starting...")
-# Importing necessary modules required 
+
+# Importing necessary modules
 try:
-    from playsound import playsound 
-    import speech_recognition as sr 
-    from googletrans import Translator 
-    from gtts import gTTS 
+    from playsound import playsound
+    import speech_recognition as sr
+    from googletrans import Translator
+    from gtts import gTTS
     import os
-    import mysql.connector 
+    import mysql.connector
     import sys
     sys.stdout.reconfigure(encoding='utf-8')
     print("All imports successful")
 except Exception as e:
     print(f"Import error: {e}")
-    exit()  # Stop script if imports fail
+    exit()
 
 print("Script started")
 
+# Load language dictionary
 try:
     conn = mysql.connector.connect(
-    host="localhost",      
-    user="root",  
-    password="11491149@Ni",  
-    database="linguabridge"
+        host="localhost",
+        user="root",
+        password="11491149@Ni",
+        database="linguabridge"
     )
     cursor = conn.cursor()
     cursor.execute("SELECT language_name, language_code FROM languages")
-    #lang_dict = {name.lower(): code for name, code in cursor.fetchall()}
-    # lang_dict = tuple((name.lower(), code) for name, code in cursor.fetchall())
-    # print(lang_dict)
-    # print(f"Loaded {len(lang_dict)} languages from MySQL.")
     lang_dict = tuple(item for sublist in cursor.fetchall() for item in sublist)
-    print(f"Loaded {len(lang_dict) // 2} languagesfromMySQL.")
+    print(f"Loaded {len(lang_dict) // 2} languages from MySQL.")
 except Exception as e:
     print(f"Database error: {e}")
-    
+    lang_dict = ()
 
-  
-# Capture Voice 
-def takecommand():   
-    r = sr.Recognizer() 
-    with sr.Microphone() as source: 
-        print("Listening... (speak now)") 
-        r.adjust_for_ambient_noise(source)  # Reduce background noise
+def get_lang_code(language_name):
+    try:
+        index = lang_dict.index(language_name.lower())
+        return lang_dict[index + 1]
+    except ValueError:
+        return None
+
+# Capture voice
+def takecommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening... (speak now)")
+        r.adjust_for_ambient_noise(source)
         r.pause_threshold = 1
         try:
-            audio = r.listen(source, timeout=5)  # Timeout after 5 seconds
+            audio = r.listen(source, timeout=5)
             print("Processing...")
         except sr.WaitTimeoutError:
             print("Timeout: No speech detected.")
@@ -52,56 +56,21 @@ def takecommand():
         except Exception as e:
             print(f"Microphone error: {e}")
             return "None"
-  
-    try: 
-        query = r.recognize_google(audio, language='en-in') 
-        print(f"You said: {query}") 
+
+    try:
+        query = r.recognize_google(audio, language='en-in')
+        print(f"You said: {query}")
+        return query
     except sr.UnknownValueError:
         print("Could not understand audio. Please try again.")
-        return "None"
-    except Exception as e: 
+    except Exception as e:
         print(f"Speech recognition error: {e}")
-        return "None"
-    return query 
-  
-# Input from user 
-query = takecommand() 
-while query == "None": 
-    print("Try again or type your query below:")
-    query = input("Type here: ") if input("Press 'T' to type or any key to retry: ").lower() == 't' else takecommand()
-  
-def destination_language(): 
-    print("Speak the target language (e.g., 'French'):") 
-    to_lang = takecommand() 
-    while to_lang == "None": 
-        to_lang = takecommand() 
-    return to_lang.lower()
-  
-to_lang = destination_language() 
-  
-# Mapping it with the code 
-while to_lang not in lang_dict: 
-    print(f"'{to_lang}' not found. Available languages:")
-    print(", ".join(lang_dict[::2]))  # Show only language names
-    to_lang = destination_language() 
-  
-to_lang = lang_dict[lang_dict.index(to_lang) + 1]  # Get ISO code
-  
-# Translator 
-translator = Translator() 
-try:
-    text_to_translate = translator.translate(query, dest=to_lang) 
-    text = text_to_translate.text 
-    print(f"Translation: {text}")
-except Exception as e:
-    print(f"Translation error: {e}")
-    exit()
-  
-# Speak translated text
-try:
-    speak = gTTS(text=text, lang=to_lang, slow=False) 
-    speak.save("translation.mp3") 
-    playsound('translation.mp3') 
-    os.remove('translation.mp3') 
-except Exception as e:
-    print(f"Audio error: {e}")
+    return "None"
+
+# Translate and speak
+def translate_and_speak(query, target_language):
+    to_lang_code = get_lang_code(target_language)
+    if not to_lang_code:
+        print(f"Language '{target_language}' not found.")
+        print("Available languages:", ", ".join(lang_dict[::2]))
+        return
