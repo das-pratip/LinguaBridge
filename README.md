@@ -25,7 +25,7 @@
 - googletrans
 - gTTS (Google Text-to-Speech)
 - playsound
-- ReactJS (Frontend)
+- Tkinter
 
 ---
 
@@ -36,8 +36,6 @@ LinguaBridge/
 ├── requirements.txt # Python dependencies
 ├── data.sql # Sample SQL file to populate languages table
 ├── README.md # Project documentation
-├── frontend/ # React-based UI
-│ └── ... # React components and configuration
 
 ---
 
@@ -97,9 +95,6 @@ Steps:
 - Language learning and pronunciation
 - Multilingual conversations
 - Accessibility for non-native speakers
-
-📜 **License**
-This project is licensed under the MIT License.
 
 👤 **Developer**
 Developed with ❤️ by Pratip Das
