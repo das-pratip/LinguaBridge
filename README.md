@@ -97,6 +97,6 @@ Steps:
 - Accessibility for non-native speakers
 
 👤 **Developer**
-Developed with ❤️ by Pratip Das
+Developed with ❤️ by Pratip Das, Asutosh Ranjan
 
 Feel free to fork, contribute, or connect!
